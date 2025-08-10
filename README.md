@@ -1,4 +1,4 @@
-# GenAI Job Search: BM25 vs. Semantic vs. Hybrid Search with Weaviate
+# GenAI Job Search: BM25 vs. Semantic vs. Hybrid Search with Weaviate (RAG)
 
 This project demonstrates and compares different search strategies—keyword (BM25), semantic, and hybrid—for a job search application. It uses a dataset of job descriptions, ingests them into a **Weaviate** vector database, and provides a **Streamlit** interface to query the data.
 
