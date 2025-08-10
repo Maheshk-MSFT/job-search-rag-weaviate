@@ -1,52 +1,79 @@
-# job-search-rag-weaviate
-GenAI Job Search: BM25 vs. Semantic vs. Hybrid Search with Weaviate
-This project demonstrates and compares different search strategies—keyword (BM25), semantic, and hybrid—for a job search application. It uses a dataset of job descriptions, ingests them into a Weaviate vector database, and provides a Streamlit interface to query the data.
+# GenAI Job Search: BM25 vs. Semantic vs. Hybrid Search with Weaviate
 
-# Tech stack used: 
-	- Python
-	- Weaviate
-	- Streamlit
-	- Ollama
+This project demonstrates and compares different search strategies—keyword (BM25), semantic, and hybrid—for a job search application. It uses a dataset of job descriptions, ingests them into a **Weaviate** vector database, and provides a **Streamlit** interface to query the data.
 
-Features
-Data Processing: Cleans and prepares raw job posting data for vectorization.
 
-Weaviate Integration: Sets up a Weaviate collection with a custom schema using Ollama for local embeddings.
+## Features
+- **Data Processing**: Cleans and prepares raw job posting data for vectorization.
+- **Weaviate Integration**: Sets up a Weaviate collection with a custom schema using Ollama for local embeddings.
+- **Search Comparison**: Implements and allows for testing of:
+    - **Keyword Search (BM25)**
+    - **Semantic Search**
+    - **Hybrid Search**
+- **Interactive UI**: A simple Streamlit application to perform searches and view results.
 
-Search Comparison: Implements and allows for testing of:
+## Tech Stack
+- **Python** with Pandas for data manipulation.
+- **Weaviate** as the vector database.
+- **Ollama** for generating text embeddings locally.
+- **Postman** (optional) for interacting with the Weaviate API.
+- **Streamlit** for the user interface.
+- **Docker** for running Weaviate.
 
-Keyword Search (BM25)
+---
+1.  **Download the data** from Kaggle: [Job Description Dataset](https://www.kaggle.com/datasets/ravindrasinghrana/job-description-dataset) [1.5 GB]. Place the CSV file in a `data` directory.
+2.  **Clean the data** using the provided Python script (`prepare_data.py`). This script uses the Pandas library to sample the dataset down to 300 rows and creates a new column named `search_text`, which concatenates several fields to be used for vector indexing.
 
-Semantic Search
+### 2. Weaviate and Ollama Setup
+You need a running instance of Weaviate with the `text2vec-ollama` module enabled.
 
-Hybrid Search
+1.  **Follow the official Weaviate guide** to run a local instance using Docker: [Weaviate Local Quickstart](https://weaviate.io/developers/weaviate/quickstart). Ensure you configure it to use the Ollama module.
+2.  Make sure your local **Ollama** service is running and has the required embedding model (e.g., `nomic-embed-text`) downloaded.
 
-Interactive UI: A simple Streamlit application to perform searches and view results.
+### 3. Create the Weaviate Collection
+Before ingesting data, you must create the `JobPosting` collection in Weaviate with the correct schema. You can do this via a `cURL` command, a Python script, or Postman.
 
-Tech Stack
-Python with Pandas for data manipulation.
+The schema should define the properties of your job postings and configure the vectorizer. Crucially, the `search_text` property should be configured for vectorization, while other properties can be set to `skip: true` to avoid indexing them.
 
-Weaviate as the vector database.
+Here is an example request to create the schema using the REST API:
+POST /v1/schema
+Host: http://localhost:8080
+Content-Type: application/json
 
-Ollama for generating text embeddings locally.
+{
+"class": "JobPosting",
+"vectorizer": "text2vec-ollama",
+"moduleConfig": {
+"text2vec-ollama": {
+"apiEndpoint": "http://host.docker.internal:11434",
+"model": "nomic-embed-text"
+}
+},
+"properties": [
+{ "name": "job_id", "dataType": ["text"], "moduleConfig": { "text2vec-ollama": { "skip": true } } },
+{ "name": "job_title", "dataType": ["text"], "moduleConfig": { "text2vec-ollama": { "skip": true } } },
+{ "name": "company", "dataType": ["text"], "moduleConfig": { "text2vec-ollama": { "skip": true } } },
+// ... other properties to skip ...
+{ "name": "search_text", "dataType": ["text"] } // This property will be vectorized
+]
+}
 
-Postman (optional) for interacting with the Weaviate API.
+text
 
-Streamlit for the user interface.
+### 4. Data Ingestion
+Run the Python ingestion script (`ingest_data.py`) to read the prepared CSV file and load the 300 records into your Weaviate collection.
 
-Docker for running Weaviate.
+After the script completes, you can verify that the objects were created successfully using the **Weaviate Console** or the **Weaviate Studio plugin** in VS Code.
 
- Steps to setup/flow: 
- (1) Data sourcing - Download the sample data from Kaggle https://www.kaggle.com/datasets/ravindrasinghrana/job-description-dataset  [1.5 GB]	
- (2) Data cleaning - prepare the data (smallset) using Pandas library - bring it to 300 rows with one column prepared for vector indexing 'search_text' - last column 
- (3) Weaviate setup - https://docs.weaviate.io/weaviate/quickstart/local
- (4) Weaviate prep - Create required collection - first create required collection -create using Postman - make sure to not mark "Skip:true" to index/not 
- (5) Data Injestion - use the python code to injest, VScode weaviate studio plugin to verify - 300 should be there as per CSV count 
- (6) Data Fetch
-		- Exact search BM25
-		- Semantic Search
-		- Hybrid Search
-  (7) UI Streamlit 
+### 5. Run the Streamlit UI
+Launch the user interface to interact with the search application.
+
+1.  Navigate to the project's root directory in your terminal.
+2.  Run the following command:
+    ```
+    streamlit run app.py
+    ```
+3.  Open your web browser to the URL provided by Streamlit. You can now perform exact, semantic, and hybrid searches on the job postings.
 
 <img width="1330" height="911" alt="b1" src="https://github.com/user-attachments/assets/adb624b8-8e2d-4926-8710-11449517233a" />
 
