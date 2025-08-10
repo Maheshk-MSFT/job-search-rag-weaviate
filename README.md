@@ -22,13 +22,13 @@ It uses a dataset of job descriptions, ingests them into a **Weaviate** vector d
 
 ---
 1.  **Download the data** from Kaggle: [Job Description Dataset](https://www.kaggle.com/datasets/ravindrasinghrana/job-description-dataset) [1.5 GB]. Place the CSV file in a `data` directory.
-2.  **Clean the data** using the provided Python script (`prepare_data.py`). This script uses the Pandas library to sample the dataset down to 300 rows and creates a new column named `search_text`, which concatenates several fields to be used for vector indexing.
+2.  **Clean the data** using the provided Python script (`prepare_data.py`). This script uses the Pandas library to sample the dataset down to 300 rows and creates a new column named `search_text`, which concatenates several fields to be used for vector indexing. Refer: datacleaning.py
 
 ### 2. Weaviate and Ollama Setup
 You need a running instance of Weaviate with the `text2vec-ollama` module enabled.
 
-1.  **Follow the official Weaviate guide** to run a local instance using Docker: [Weaviate Local Quickstart](https://weaviate.io/developers/weaviate/quickstart). Ensure you configure it to use the Ollama module.
-2.  Make sure your local **Ollama** service is running and has the required embedding model (e.g., `nomic-embed-text`) downloaded.
+1.  **Follow the official Weaviate guide** to run a local instance using Docker: [Weaviate Local Quickstart](https://weaviate.io/developers/weaviate/quickstart). Ensure you configure it to use the Ollama module. 
+2.  Make sure your local **Ollama** service is running and has the required embedding model (e.g., `nomic-embed-text`) downloaded. Ref: docker-compose.yml
 
 ### 3. Create the Weaviate Collection
 Before ingesting data, you must create the `JobPosting` collection in Weaviate with the correct schema. You can do this via a `cURL` command, a Python script, or Postman.
@@ -36,12 +36,12 @@ Before ingesting data, you must create the `JobPosting` collection in Weaviate w
 The schema should define the properties of your job postings and configure the vectorizer. Crucially, the `search_text` property should be configured for vectorization, while other properties can be set to `skip: true` to avoid indexing them.
 
 ### 4. Data Ingestion
-Run the Python ingestion script (`ingest_data.py`) to read the prepared CSV file and load the 300 records into your Weaviate collection.
+Run the Python ingestion script (`load_dataset_into_weaviate.py`) to read the prepared CSV file and load the 300 records into your Weaviate collection.
 
 After the script completes, you can verify that the objects were created successfully using the **Weaviate Console** or the **Weaviate Studio plugin** in VS Code.
 
-### 5. Run the Streamlit UI
-Launch the user interface to interact with the search application.
+### 5. Run the Streamlit UI 
+Launch the user interface to interact with the search application. - Refer: job_search_api.py, streamlit_app.py
 
 1.  Navigate to the project's root directory in your terminal.
 2.  Run the following command:
