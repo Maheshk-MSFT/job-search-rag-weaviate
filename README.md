@@ -1,7 +1,7 @@
 # Job Search: BM25 vs. Semantic vs. Hybrid Search with Weaviate (RAG)
 
-This project demonstrates and compares different search strategies—keyword (BM25), semantic, and hybrid—for a job search application. It uses a dataset of job descriptions, ingests them into a **Weaviate** vector database, and provides a **Streamlit** interface to query the data.
-
+This project demonstrates and compares different search strategies - keyword (BM25), semantic, and hybrid - for a job search application. 
+It uses a dataset of job descriptions, ingests them into a **Weaviate** vector database, and provides a **Streamlit** interface to query the data.
 
 ## Features
 - **Data Processing**: Cleans and prepares raw job posting data for vectorization.
@@ -34,31 +34,6 @@ You need a running instance of Weaviate with the `text2vec-ollama` module enable
 Before ingesting data, you must create the `JobPosting` collection in Weaviate with the correct schema. You can do this via a `cURL` command, a Python script, or Postman.
 
 The schema should define the properties of your job postings and configure the vectorizer. Crucially, the `search_text` property should be configured for vectorization, while other properties can be set to `skip: true` to avoid indexing them.
-
-Here is an example request to create the schema using the REST API:
-POST /v1/schema
-Host: http://localhost:8080
-Content-Type: application/json
-
-{
-"class": "JobPosting",
-"vectorizer": "text2vec-ollama",
-"moduleConfig": {
-"text2vec-ollama": {
-"apiEndpoint": "http://host.docker.internal:11434",
-"model": "nomic-embed-text"
-}
-},
-"properties": [
-{ "name": "job_id", "dataType": ["text"], "moduleConfig": { "text2vec-ollama": { "skip": true } } },
-{ "name": "job_title", "dataType": ["text"], "moduleConfig": { "text2vec-ollama": { "skip": true } } },
-{ "name": "company", "dataType": ["text"], "moduleConfig": { "text2vec-ollama": { "skip": true } } },
-// ... other properties to skip ...
-{ "name": "search_text", "dataType": ["text"] } // This property will be vectorized
-]
-}
-
-text
 
 ### 4. Data Ingestion
 Run the Python ingestion script (`ingest_data.py`) to read the prepared CSV file and load the 300 records into your Weaviate collection.
