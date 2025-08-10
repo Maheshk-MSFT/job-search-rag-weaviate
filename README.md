@@ -1,10 +1,40 @@
 # job-search-rag-weaviate
+GenAI Job Search: BM25 vs. Semantic vs. Hybrid Search with Weaviate
+This project demonstrates and compares different search strategies—keyword (BM25), semantic, and hybrid—for a job search application. It uses a dataset of job descriptions, ingests them into a Weaviate vector database, and provides a Streamlit interface to query the data.
 
 # Tech stack used: 
 	- Python
 	- Weaviate
 	- Streamlit
 	- Ollama
+
+Features
+Data Processing: Cleans and prepares raw job posting data for vectorization.
+
+Weaviate Integration: Sets up a Weaviate collection with a custom schema using Ollama for local embeddings.
+
+Search Comparison: Implements and allows for testing of:
+
+Keyword Search (BM25)
+
+Semantic Search
+
+Hybrid Search
+
+Interactive UI: A simple Streamlit application to perform searches and view results.
+
+Tech Stack
+Python with Pandas for data manipulation.
+
+Weaviate as the vector database.
+
+Ollama for generating text embeddings locally.
+
+Postman (optional) for interacting with the Weaviate API.
+
+Streamlit for the user interface.
+
+Docker for running Weaviate.
 
  Steps to setup/flow: 
  (1) Data sourcing - Download the sample data from Kaggle https://www.kaggle.com/datasets/ravindrasinghrana/job-description-dataset  [1.5 GB]	
