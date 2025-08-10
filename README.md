@@ -72,4 +72,6 @@ Launch the user interface to interact with the search application. - Refer: job_
 
 
 ----- ----- -----
-Credit goes to this channel: [https://www.youtube.com/@BlogYourCode ](https://www.youtube.com/watch?v=PzTvE8YqqZE)
+Credit: [BlogYourCode ](https://www.youtube.com/watch?v=PzTvE8YqqZE)
+Built with Weaviate, FastAPI, Streamlit
+
