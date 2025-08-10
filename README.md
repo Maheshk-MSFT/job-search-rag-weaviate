@@ -1,5 +1,10 @@
 # job-search-rag-weaviate
 
+# Tech stack used: 
+	- Python
+	- Weaviate
+	- Streamlit
+	- Ollama
 
 <img width="1330" height="911" alt="b1" src="https://github.com/user-attachments/assets/adb624b8-8e2d-4926-8710-11449517233a" />
 
