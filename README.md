@@ -6,6 +6,18 @@
 	- Streamlit
 	- Ollama
 
+ Steps to setup/flow: 
+ (1) Data sourcing - Download the sample data from Kaggle https://www.kaggle.com/datasets/ravindrasinghrana/job-description-dataset  [1.5 GB]	
+ (2) Data cleaning - prepare the data (smallset) using Pandas library - bring it to 300 rows with one column prepared for vector indexing 'search_text' - last column 
+ (3) Weaviate setup - https://docs.weaviate.io/weaviate/quickstart/local
+ (4) Weaviate prep - Create required collection - first create required collection -create using Postman - make sure to not mark "Skip:true" to index/not 
+ (5) Data Injestion - use the python code to injest, VScode weaviate studio plugin to verify - 300 should be there as per CSV count 
+ (6) Data Fetch
+		- Exact search BM25
+		- Semantic Search
+		- Hybrid Search
+  (7) UI Streamlit 
+
 <img width="1330" height="911" alt="b1" src="https://github.com/user-attachments/assets/adb624b8-8e2d-4926-8710-11449517233a" />
 
 <img width="1047" height="746" alt="b2" src="https://github.com/user-attachments/assets/ad491de0-8517-4eb9-8c8a-29a715505c69" />
