@@ -74,6 +74,6 @@ Launch the user interface to interact with the search application. - Refer: job_
 
 
 ----- ----- -----
-Credit: [BlogYourCode ](https://www.youtube.com/watch?v=PzTvE8YqqZE)
-Built with Weaviate, FastAPI, Streamlit
+Idea borrowed from [BlogYourCode ](https://www.youtube.com/watch?v=PzTvE8YqqZE) ; Built with Weaviate, FastAPI, Streamlit, Python and Llama models
+[10/Aug/2025] I will continue to update adding Llama model generating the desired response. 
 
