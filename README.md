@@ -12,6 +12,8 @@ It uses a dataset of job descriptions, ingests them into a **Weaviate** vector d
     - **Hybrid Search**
 - **Interactive UI**: A simple Streamlit application to perform searches and view results.
 
+<img width="913" height="667" alt="image" src="https://github.com/user-attachments/assets/9a75e433-4427-4a6c-9e37-13e3ac60b620" />
+
 ## Tech Stack
 - **Python** with Pandas for data manipulation.
 - **Weaviate** as the vector database.
